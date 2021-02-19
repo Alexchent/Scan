@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::get('/scan', [\App\Http\Controllers\ScanController::class,'index']);
+Route::get('/files', [\App\Http\Controllers\FilesController::class,'show']);

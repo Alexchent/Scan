@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Files;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ScanController extends Controller
 {
+    static $num;
     public function index(Request $request)
     {
         if (!$request->has('path')) echo "请输入文件路径";
+        DB::table('files')->truncate();
         $this->get_dir_info($request->path);
         echo "success";
     }
-
 
     private function get_dir_info($path)
     {
@@ -39,6 +39,9 @@ class ScanController extends Controller
                 ];
             }
             if (isset($data)) {
+                self::$num += count($data);
+                echo self::$num."<br>";
+
                 DB::table('files')->insert($data);
 //                Files::insert($data);
                 unset($data);
