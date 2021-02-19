@@ -33,7 +33,7 @@ class ScanController extends Controller
 //                Storage::append("file_name_2_path-".time().'.txt', $content . ':' . $file);
                 $data[] = [
                     'file_name' => $content,
-                    'file_path' => $file,
+                    'file_path' => $path,
                     'file_extension' => pathinfo($file, PATHINFO_EXTENSION),
                     'file_size' => filesize($file),
                 ];

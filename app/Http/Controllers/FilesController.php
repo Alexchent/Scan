@@ -7,12 +7,26 @@ use Illuminate\Http\Request;
 
 class FilesController extends Controller
 {
-    public function show(Request $request)
+    public function index(Request $request)
     {
-        return Files::when($request->has('file_name'), function ($query) use ($request) {
+        $files = Files::when($request->has('file_name'), function ($query) use ($request) {
             return $query->where('file_name', 'like', '%' . $request['file_name'] . '%');
         })->when($request->has('file_extension'),function ($query) use ($request) {
             return $query->where('file_extension', $request['file_extension']);
         })->get();
+
+        return View('files', compact('files'));
+    }
+
+    public function destroy($file)
+    {
+        echo $file;die;
+//        dd($request->all());
+    }
+
+    public function show($file_path, Request $request)
+    {
+        echo $file_path;die;
+        dd($request->all());
     }
 }
