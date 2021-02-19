@@ -18,7 +18,7 @@ class CreateFilesTable extends Migration
             $table->string('file_name');
             $table->string('file_path');
             $table->string('file_extension');//后缀
-            $table->integer('file_size')->comment('文件大小字节');//后缀
+            $table->bigInteger('file_size')->comment('文件大小字节');//后缀
             $table->timestamps();
         });
     }
