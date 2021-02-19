@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Storage;
 
-const FILE_DATA_PATH = "/Users/chentao/Downloads/";
+//const FILE_DATA_PATH = "/Users/chentao/Downloads/";
+const FILE_DATA_PATH = "C:\Users\alexchen\Documents\Scanned\\";
 /**
  * 上传图片到阿里云
  *
@@ -36,10 +37,11 @@ function get_dir_info($path)
 //            echo "目录：".$new_dir . "\n";
             get_dir_info($new_dir); // 递归到下一层
         } else {
-            $file = $path . '/' . $content . "\n";
+            $file = $path . '/' . $content;
 //            $content = file_get_contents($path.'/'.$content);
             if ($content == ".DS_Store") continue; //过滤配置文件
-            file_put_contents(FILE_DATA_PATH . "file_name_2_path-".now()->toDateString().'.txt', $content . ':' . $file, FILE_APPEND);
+//            file_put_contents(FILE_DATA_PATH . "file_name_2_path-".now()->toDateString().'.txt', $content . ':' . $file, FILE_APPEND);
+            Storage::append("file_name_2_path-".time().'.txt', $content . ':' . $file);
         }
     }
 }
