@@ -18,15 +18,13 @@ class FilesController extends Controller
         return View('files', compact('files'));
     }
 
-    public function destroy($file)
+    public function destroy(Request $request)
     {
-        echo $file;die;
-//        dd($request->all());
+        echo $request->file;
     }
 
-    public function show($file_path, Request $request)
+    public function show(Request $request, $file_path)
     {
         echo $file_path;die;
-        dd($request->all());
     }
 }
