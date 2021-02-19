@@ -25,6 +25,16 @@ class FilesController extends Controller
 
     public function show(Request $request, $file_path)
     {
-        echo $file_path;die;
+        $shell = "explorer ".$file_path;
+        exec($shell, $result,$status);
+        return redirect()->back();
+//        echo "<pre>";
+//        if( $status ){
+//            echo "shell命令{$shell}执行失败";
+//        } else {
+//            echo "shell命令{$shell}成功执行, 结果如下<hr>";
+//            print_r( $result );
+//        }
+//        echo "</pre>";
     }
 }
