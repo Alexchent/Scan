@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e582de4d-d3ed-47c9-9ef2-76f79c6147fc" name="Default" comment="将扫描的结果存入数据库">
+    <list default="true" id="e582de4d-d3ed-47c9-9ef2-76f79c6147fc" name="Default" comment="表单请求触发接口">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FilesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FilesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/files.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/files.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable />
@@ -167,6 +164,12 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
+  <component name="RunManager">
+    <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner scope="XML" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -178,7 +181,8 @@
       <option name="presentableId" value="Default" />
       <updated>1613702648516</updated>
       <workItem from="1613702650763" duration="1765000" />
-      <workItem from="1613713139794" duration="13965000" />
+      <workItem from="1613713139794" duration="14659000" />
+      <workItem from="1613784897080" duration="3113000" />
     </task>
     <task id="LOCAL-00001" summary="将扫描的结果存入数据库">
       <created>1613717525248</created>
@@ -208,7 +212,21 @@
       <option name="project" value="LOCAL" />
       <updated>1613728734670</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="表单请求触发接口">
+      <created>1613729058318</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1613729058318</updated>
+    </task>
+    <task id="LOCAL-00006" summary="开发文件所在位置">
+      <created>1613729720189</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1613729720189</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,13 +237,15 @@
     <MESSAGE value="修改表结构" />
     <MESSAGE value="查询文件" />
     <MESSAGE value="文件查询" />
-    <option name="LAST_COMMIT_MESSAGE" value="文件查询" />
+    <MESSAGE value="表单请求触发接口" />
+    <MESSAGE value="开发文件所在位置" />
+    <option name="LAST_COMMIT_MESSAGE" value="开发文件所在位置" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="349" y="48" key="CommitChangelistDialog2" timestamp="1613728732860">
+    <state x="349" y="48" key="CommitChangelistDialog2" timestamp="1613729719368">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="349" y="48" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1613728732860" />
+    <state x="349" y="48" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1613729719368" />
     <state x="5" y="86" key="DiffContextDialog" timestamp="1613728701912">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -234,14 +254,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="218" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1613722705526" />
-    <state x="452" y="174" key="Vcs.Push.Dialog.v2" timestamp="1613728735998">
+    <state x="452" y="174" key="Vcs.Push.Dialog.v2" timestamp="1613729722462">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="452" y="174" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1613728735998" />
-    <state x="719" y="418" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1613728746419">
+    <state x="452" y="174" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1613729722462" />
+    <state x="577" y="303" key="com.intellij.ide.util.TipDialog" timestamp="1613784946609">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="719" y="418" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1613728746419" />
+    <state x="577" y="303" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1613784946609" />
+    <state x="719" y="418" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1613799266696">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="719" y="418" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1613799266696" />
     <state x="532" y="237" key="run.anything.popup" timestamp="1613717451077">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
