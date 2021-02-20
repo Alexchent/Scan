@@ -26,7 +26,6 @@ class FilesController extends Controller
     public function destroy(Files $file)
     {
         //原始
-//        $file = $request->file;
         $original_file = $file->file_path.'\\'.$file->file_name;
         $original_file = str_replace('[', '\[', $original_file);
         $original_file = str_replace(']', '\]', $original_file);
@@ -35,8 +34,6 @@ class FilesController extends Controller
         $shell = "del ".$original_file; //win
 //        $shell = "rm ".$file; //macOS
         exec($shell, $result,$status);
-        Log::info($result);
-        Log::info($status);
         if( $status ){
             echo "shell命令{$shell}执行失败";die;
         } else {
