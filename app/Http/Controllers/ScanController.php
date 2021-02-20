@@ -11,7 +11,7 @@ class ScanController extends Controller
     static $num;
     public function index(Request $request)
     {
-        if (!$request->has('path')) echo "请输入文件路径";
+        if (!$request->has('path')) die("请输入文件路径");
         DB::table('files')->truncate();
         $this->get_dir_info($request->path);
         echo "success";
