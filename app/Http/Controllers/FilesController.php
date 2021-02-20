@@ -13,28 +13,36 @@ class FilesController extends Controller
             return $query->where('file_name', 'like', '%' . $request['file_name'] . '%');
         })->when($request->has('file_extension'),function ($query) use ($request) {
             return $query->where('file_extension', $request['file_extension']);
-        })->get();
+        })->paginate(10);
 
         return View('files', compact('files'));
     }
 
     public function destroy(Request $request)
     {
-        echo $request->file;
+//        $file = quotemeta($request->file);
+        $file = $request->file;
+        $file = str_replace('[', '\[', $file);
+        $file = str_replace(']', '\]', $file);
+        $file = str_replace(' ', '\ ', $file);
+//        $file = preg_replace('/\s+/', '\ ', $file);
+        $shell = "rm ".$file; //macOS
+
+        exec($shell, $result,$status);
+
+        if( $status ){
+            echo "shell命令{$shell}执行失败";
+        } else {
+            echo "shell命令{$shell}成功执行";
+        }
+        return redirect()->back();
     }
 
-    public function show(Request $request, $file_path)
+    public function show(Request $request, Files $file)
     {
-        $shell = "explorer ".$file_path;
+//        $shell = "explorer ".$file_path; //win
+        $shell = "open ".$file->file_path; //macOS
         exec($shell, $result,$status);
         return redirect()->back();
-//        echo "<pre>";
-//        if( $status ){
-//            echo "shell命令{$shell}执行失败";
-//        } else {
-//            echo "shell命令{$shell}成功执行, 结果如下<hr>";
-//            print_r( $result );
-//        }
-//        echo "</pre>";
     }
 }

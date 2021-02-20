@@ -7,7 +7,7 @@
     <body>
 
     <div class="container">
-
+        <div class="col-lg-12">
         <table class="table table-bordered">
             <tr>
                 <td>文件名</td>
@@ -24,18 +24,20 @@
                 <td>{{ $file->file_size }}</td>
                 <td>
                     <form action="{{ route('files.destroy') }}" method="post" onsubmit="return confirm('您确定要删除吗')">
-                        <input name="file_path" value="{{ $file->file_path.'/'.$file->file_name }}" hidden>
+                        <input name="file" value="{{ $file->file_path.'/'.$file->file_name }}" hidden>
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <button type="submit" class="btn btn-danger">删除</button>
                     </form>
-                    <form action="{{ route('files.show', $file->file_path) }}" method="get">
+                    <form action="{{ route('files.show', $file) }}" method="get">
+                        {{--<input name="file_path" value="{{ $file->file_path }}" hidden>--}}
                         <button type="submit" class="btn btn-primary">打开</button>
                     </form>
                 </td>
             </tr>
             @endforeach
         </table>
+        </div>
 
     </div>
 
