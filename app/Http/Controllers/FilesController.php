@@ -18,6 +18,11 @@ class FilesController extends Controller
         return View('files', compact('files'));
     }
 
+    public function repeat()
+    {
+        return $files =  Files::with('sames')->has('sames', '>', 1)->get();
+    }
+
     /**
      * @param Files $file 注意 变量名与模型名的约定，否则无法自动查找对象
      * @return \Illuminate\Http\RedirectResponse

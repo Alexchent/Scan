@@ -17,7 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/scan', [\App\Http\Controllers\ScanController::class,'index']);
+Route::get('/scan', [\App\Http\Controllers\ScanController::class,'index'])->name('scan');
+
+Route::get('/repeat_files', [\App\Http\Controllers\FilesController::class,'repeat']);
+
 Route::get('/files', [\App\Http\Controllers\FilesController::class,'index'])->name('files.index');
 Route::delete('/files/{file}', [\App\Http\Controllers\FilesController::class,'destroy'])->name('files.destroy');
 Route::get('/files/{file}', [\App\Http\Controllers\FilesController::class,'show'])->name('files.show');
