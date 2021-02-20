@@ -18,6 +18,6 @@ Route::get('/', function () {
 });
 
 Route::get('/scan', [\App\Http\Controllers\ScanController::class,'index']);
-Route::get('/files', [\App\Http\Controllers\FilesController::class,'index']);
+Route::get('/files', [\App\Http\Controllers\FilesController::class,'index'])->name('files.index');
 Route::delete('/files/{file}', [\App\Http\Controllers\FilesController::class,'destroy'])->name('files.destroy');
 Route::get('/files/{file}', [\App\Http\Controllers\FilesController::class,'show'])->name('files.show');

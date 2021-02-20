@@ -10,11 +10,11 @@ class FilesController extends Controller
 {
     public function index(Request $request)
     {
-        $files = Files::when($request->has('file_name'), function ($query) use ($request) {
+        $files = Files::when($request->has('file_name') && !empty($request['file_name']) , function ($query) use ($request) {
             return $query->where('file_name', 'like', '%' . $request['file_name'] . '%');
-        })->when($request->has('file_extension'),function ($query) use ($request) {
+        })->when($request->has('file_extension') && !empty($request['file_extension']), function ($query) use ($request) {
             return $query->where('file_extension', $request['file_extension']);
-        })->paginate(10);
+        })->paginate(6);
 
         return View('files', compact('files'));
     }

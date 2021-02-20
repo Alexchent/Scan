@@ -7,35 +7,64 @@
     <body>
 
     <div class="container">
-        <div class="col-lg-12">
-        <table class="table table-bordered">
-            <tr>
-                <td>文件名</td>
-                <td>文件路径</td>
-                <td>文件扩展名</td>
-                <td>文件大小</td>
-                <td>操作</td>
-            </tr>
-            @foreach($files as $file)
-            <tr>
-                <td>{{ $file->file_name }}</td>
-                <td>{{ $file->file_path }}</td>
-                <td>{{ $file->file_extension }}</td>
-                <td>{{ $file->file_size }}</td>
-                <td>
-                    <form action="{{ route('files.destroy', $file) }}" method="post" onsubmit="return confirm('您确定要删除吗')">
-{{--                        <input name="file" value="{{ $file->file_path.'/'.$file->file_name }}" hidden>--}}
-                        {{ csrf_field() }}
-                        {{ method_field('DELETE') }}
-                        <button type="submit" class="btn btn-danger">删除</button>
-                    </form>
-                    <form action="{{ route('files.show', $file) }}" method="get">
-                        <button type="submit" class="btn btn-primary">打开</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </table>
+        <div class="row">
+            <div class="col-lg-12">
+                <form class="form-inline" action="{{ route('files.index') }}" method="get">
+                    <div class="form-group">
+                        <label class="sr-only" for="fileName">文件名</label>
+                        <input type="text" class="form-control" id="fileName" name="file_name" placeholder="文件名">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="extension">文件扩展名</label>
+                        <input type="text" class="form-control" id="extension" name="file_extension" placeholder="文件扩展名">
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="repeat"> 仅查重
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="mt-5">
+                    {!! $files->render() !!}
+                </div>
+            <table class="table table-bordered">
+                <tr>
+                    <td>文件名</td>
+                    <td>文件路径</td>
+                    <td>文件扩展名</td>
+                    <td>文件大小</td>
+                    <td>操作</td>
+                </tr>
+                @foreach($files as $file)
+                <tr>
+                    <td>{{ $file->file_name }}</td>
+                    <td>{{ $file->file_path }}</td>
+                    <td>{{ $file->file_extension }}</td>
+                    <td>{{ $file->file_size }}</td>
+                    <td>
+                            <form action="{{ route('files.destroy', $file) }}" method="post" onsubmit="return confirm('您确定要删除吗')">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <button type="submit" class="btn btn-danger">删除</button>
+                            </form>
+
+                            <form action="{{ route('files.show', $file) }}" method="get">
+                                <button type="submit" class="btn btn-primary">打开</button>
+                            </form>
+                    </td>
+                </tr>
+                @endforeach
+            </table>
+                <div class="mt-5">
+                    {!! $files->render() !!}
+                </div>
+            </div>
         </div>
 
     </div>
