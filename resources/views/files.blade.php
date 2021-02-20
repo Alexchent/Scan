@@ -3,6 +3,11 @@
     <head>
         <title>@yield('title','scan app')</title>
         <link rel="stylesheet" href="{{mix('css/app.css')}}">
+        <style>
+            body{
+                /*background-image: url("http://www.abiechina.com/images/have_img.png");*/
+            }
+        </style>
     </head>
     <body>
 
