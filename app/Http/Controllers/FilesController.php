@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Files;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class FilesController extends Controller
 {
@@ -18,30 +19,37 @@ class FilesController extends Controller
         return View('files', compact('files'));
     }
 
-    public function destroy(Request $request)
+    /**
+     * @param Files $file 注意 变量名与模型名的约定，否则无法自动查找对象
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Files $file)
     {
-//        $file = quotemeta($request->file);
-        $file = $request->file;
-        $file = str_replace('[', '\[', $file);
-        $file = str_replace(']', '\]', $file);
-        $file = str_replace(' ', '\ ', $file);
+        //原始
+//        $file = $request->file;
+        $original_file = $file->file_path.'\\'.$file->file_name;
+        $original_file = str_replace('[', '\[', $original_file);
+        $original_file = str_replace(']', '\]', $original_file);
+        $original_file = str_replace(' ', '\ ', $original_file);
 //        $file = preg_replace('/\s+/', '\ ', $file);
-        $shell = "rm ".$file; //macOS
-
+        $shell = "del ".$original_file; //win
+//        $shell = "rm ".$file; //macOS
         exec($shell, $result,$status);
-
+        Log::info($result);
+        Log::info($status);
         if( $status ){
-            echo "shell命令{$shell}执行失败";
+            echo "shell命令{$shell}执行失败";die;
         } else {
+            Files::destroy($file->id);
             echo "shell命令{$shell}成功执行";
         }
         return redirect()->back();
     }
 
-    public function show(Request $request, Files $file)
+    public function show(Files $file)
     {
-//        $shell = "explorer ".$file_path; //win
-        $shell = "open ".$file->file_path; //macOS
+        $shell = "explorer ".$file->file_path; //win
+//        $shell = "open ".$file->file_path; //macOS
         exec($shell, $result,$status);
         return redirect()->back();
     }
