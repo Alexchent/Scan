@@ -20,7 +20,7 @@
             <td>{{ $file->file_name }}</td>
             <td>{{ $file->file_path }}</td>
             <td>{{ $file->file_extension }}</td>
-            <td>{{ $file->file_size }}</td>
+            <td>{{ $file->file_size_f }}mb</td>
             <td>
                 <form action="{{ route('files.destroy', $file) }}" method="post" onsubmit="return confirm('您确定要删除吗')">
                     {{ csrf_field() }}
