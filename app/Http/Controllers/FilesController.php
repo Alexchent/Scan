@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Files;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FilesController extends Controller
 {
@@ -23,14 +24,24 @@ class FilesController extends Controller
 
     public function repeat()
     {
-        $files =  Files::with('sames')->has('sames', '>', 1)->paginate(6);
-        foreach ($files as $sames) {
-            foreach ($sames['sames']  as $same) {
-                //字节转MB
-                $same->file_size_f = round($same->file_size / 1048576,2);
-            }
+//        $files =  Files::with('sames')->has('sames', '>', 1)->paginate(6);
+//        foreach ($files as $sames) {
+//            foreach ($sames['sames']  as $same) {
+//                //字节转MB
+//                $same->file_size_f = round($same->file_size / 1048576,2);
+//            }
+//        }
+        $filesHaveSame = DB::table('files')->select('file_name', DB::raw('COUNT(1) as num'))
+            ->groupBy('file_name')
+            ->havingRaw('num > ?', [1])
+            ->get();
+        $files_name = array_column($filesHaveSame->toArray(), 'file_name');
+        $files = Files::whereIn('file_name', $files_name)->orderBy('file_name')->orderBy('file_size')->paginate(10);
+        foreach ($files  as $same) {
+            //字节转MB
+            $same->file_size_f = round($same->file_size / 1048576, 2);
         }
-        return View('repeat_files', compact('files'));
+        return View('files', compact('files'));
     }
 
     /**
@@ -68,7 +79,12 @@ class FilesController extends Controller
 //            $path = str_replace('/','\\', $file->file_path);
             $shell = "explorer ".$file->file_path;
         } else {
-            $shell = "open ".$file->file_path; //macOS
+            $original_file = str_replace('[', '\[', $file->file_path.'/'.$file->file_name);
+            $original_file = str_replace(']', '\]', $original_file);
+            $original_file = str_replace('(', '\(', $original_file);
+            $original_file = str_replace(')', '\)', $original_file);
+            $original_file = str_replace(' ', '\ ', $original_file);
+            $shell = "open ".$original_file; //macOS
         }
         exec($shell, $result,$status);
 //        echo $shell;
