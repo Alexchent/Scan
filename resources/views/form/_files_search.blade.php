@@ -9,11 +9,6 @@
                 <label class="sr-only" for="extension">文件扩展名</label>
                 <input type="text" class="form-control" id="extension" name="file_extension" placeholder="文件扩展名">
             </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" id="repeat"> 仅查重
-                </label>
-            </div>
             <button type="submit" class="btn btn-primary">确定</button>
         </form>
     </div>

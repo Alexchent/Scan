@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::get('/scan', [\App\Http\Controllers\ScanController::class,'index'])->name('scan');
 
-Route::get('/repeat_files', [\App\Http\Controllers\FilesController::class,'repeat']);
+Route::get('/repeat_files', [\App\Http\Controllers\FilesController::class,'repeat'])->name('repeat_files');
 
 Route::get('/files', [\App\Http\Controllers\FilesController::class,'index'])->name('files.index');
 Route::delete('/files/{file}', [\App\Http\Controllers\FilesController::class,'destroy'])->name('files.destroy');

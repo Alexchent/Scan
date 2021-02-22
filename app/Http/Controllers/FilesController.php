@@ -20,7 +20,8 @@ class FilesController extends Controller
 
     public function repeat()
     {
-        return $files =  Files::with('sames')->has('sames', '>', 1)->get();
+        $files =  Files::with('sames')->has('sames', '>', 1)->paginate(6);
+        return View('repeat_files', compact('files'));
     }
 
     /**

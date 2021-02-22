@@ -9,19 +9,18 @@
             }
         </style>
     </head>
-
     <body>
-        <div class="container">
-            @include('form._files_search')
 
-            <div class="row">
+    <div class="container">
 
-                <div class="col-lg-12">
-                    @include('table._files')
-                </div>
+        <div class="row">
 
+            <div class="col-lg-12">
+                @include('table._repeat_files')
             </div>
 
         </div>
+
+    </div>
     </body>
 </html>
