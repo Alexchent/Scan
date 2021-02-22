@@ -9,7 +9,25 @@ use Illuminate\Support\Facades\Storage;
 
 class ScanController extends Controller
 {
+    const EXTENSION = [
+        'mp4',
+        'mov',
+        'flv',
+
+        'png',
+        'gif',
+        'jpg',
+
+        '7z',
+        'rar',
+
+        'txt',
+        'html',
+
+    ];
+
     static $num;
+
     public function index(Request $request)
     {
         if (!$request->has('path')) die("请输入文件路径");
@@ -34,6 +52,8 @@ class ScanController extends Controller
                 continue;
             }
             if (is_dir($new_dir)) {
+                if (strpos('.', $new_dir) !== false) continue;
+                echo $new_dir.'<br>';
                 $this->get_dir_info($new_dir); // 递归到下一层
             } else {
                 if (PHP_OS_FAMILY === "Windows") {
@@ -43,6 +63,9 @@ class ScanController extends Controller
                 }
                 if ($content == ".DS_Store") continue; //过滤配置文件
 //                Storage::append("file_name_2_path-".time().'.txt', $content . ':' . $file);
+                $extension = pathinfo($file, PATHINFO_EXTENSION);
+                if (!in_array($extension, self::EXTENSION)) continue;
+
                 $data[] = [
                     'file_name' => $content,
                     'file_path' => $path,

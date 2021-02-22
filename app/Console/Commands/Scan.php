@@ -24,6 +24,23 @@ class Scan extends Command
 
     static $num;
 
+    const EXTENSION = [
+        'mp4',
+        'mov',
+        'flv',
+
+        'png',
+        'gif',
+        'jpg',
+
+        '7z',
+        'rar',
+
+        'txt',
+        'html',
+
+    ];
+
     /**
      * Create a new command instance.
      *
@@ -60,24 +77,27 @@ class Scan extends Command
                 $new_dir = $path . '/' . $content;
             }
             echo "DIR----",$new_dir.PHP_EOL;
-            if ($content == '..' || $content == '.') {
-                continue;
-            }
+            if ($content == '..' || $content == '.') continue;
+            if (strpos('.', $new_dir) !== false) continue;
+
             if (is_dir($new_dir)) {
                 $this->get_dir_info($new_dir); // 递归到下一层
             } else {
+
                 if (PHP_OS_FAMILY === "Windows") {
                     $file = $path . '\\' . $content;
                 } else {
                     $file = $path . '/' . $content;
                 }
-                if ($content == ".DS_Store") continue; //过滤配置文件
 //                Storage::append("file_name_2_path-".time().'.txt', $content . ':' . $file);
+                $extension = pathinfo($file, PATHINFO_EXTENSION);
+                if (!in_array($extension, self::EXTENSION)) continue;
+
                 $data[] = [
                     'file_name' => $content,
                     'file_path' => $path,
-                    'file_extension' => pathinfo($file, PATHINFO_EXTENSION),
-                    'file_size' => 0,
+                    'file_extension' => $extension,
+                    'file_size' => filesize($file),
                 ];
             }
             if (isset($data)) {
