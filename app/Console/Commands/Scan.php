@@ -1,23 +1,53 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Console\Commands;
 
 use App\Files;
-use Illuminate\Http\Request;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
-class ScanController extends Controller
+class Scan extends Command
 {
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'scan';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = '扫描目录记录所有文件与位置的映射关系';
+
     static $num;
-    public function index(Request $request)
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        if (!$request->has('path')) die("请输入文件路径");
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
+    {
+        $path = $this->ask('请输入要扫描的目录');
+        echo "start scan".$path.PHP_EOL;
         DB::table('files')->truncate();
-        echo "正在扫描，请稍后访问";
-        echo url('files');
+        echo "scanning, please click:".url('files').PHP_EOL;
         //TODO 使用消息队列处理
-        $this->get_dir_info($request->path);
+        echo PHP_OS_FAMILY.PHP_EOL;
+        $this->get_dir_info($path);
     }
 
     private function get_dir_info($path)
@@ -29,7 +59,7 @@ class ScanController extends Controller
             } else {
                 $new_dir = $path . '/' . $content;
             }
-
+            echo "DIR----",$new_dir.PHP_EOL;
             if ($content == '..' || $content == '.') {
                 continue;
             }
@@ -47,12 +77,12 @@ class ScanController extends Controller
                     'file_name' => $content,
                     'file_path' => $path,
                     'file_extension' => pathinfo($file, PATHINFO_EXTENSION),
-                    'file_size' => filesize($file),
+                    'file_size' => 0,
                 ];
             }
             if (isset($data)) {
                 self::$num += count($data);
-//                echo self::$num."<br>";
+                echo "have scanned files:".self::$num.PHP_EOL;
                 Files::insert($data);
                 unset($data);
             }
