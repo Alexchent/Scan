@@ -24,13 +24,6 @@ class FilesController extends Controller
 
     public function repeat()
     {
-//        $files =  Files::with('sames')->has('sames', '>', 1)->paginate(6);
-//        foreach ($files as $sames) {
-//            foreach ($sames['sames']  as $same) {
-//                //字节转MB
-//                $same->file_size_f = round($same->file_size / 1048576,2);
-//            }
-//        }
         $filesHaveSame = DB::table('files')->select('file_name', DB::raw('COUNT(1) as num'))
             ->groupBy('file_name')
             ->havingRaw('num > ?', [1])
