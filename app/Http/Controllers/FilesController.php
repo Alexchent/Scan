@@ -34,7 +34,7 @@ class FilesController extends Controller
             //字节转MB
             $same->file_size_f = round($same->file_size / 1048576, 2);
         }
-        return View('files', compact('files'));
+        return View('files', ['files' => $files, 'repeat' => true]);
     }
 
     /**
