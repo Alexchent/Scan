@@ -22,25 +22,6 @@ class Scan extends Command
      */
     protected $description = '扫描目录记录所有文件与位置的映射关系';
 
-    static $num;
-
-    const EXTENSION = [
-        'mp4',
-        'mov',
-        'flv',
-
-        'png',
-        'gif',
-        'jpg',
-
-        '7z',
-        'rar',
-
-        'txt',
-        'html',
-
-    ];
-
     /**
      * Create a new command instance.
      *
@@ -56,7 +37,7 @@ class Scan extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(Files $files)
     {
         $path = $this->ask('请输入要扫描的目录');
         echo "start scan".$path.PHP_EOL;
@@ -64,53 +45,6 @@ class Scan extends Command
         echo "scanning, please click:".url('files').PHP_EOL;
         //TODO 使用消息队列处理
         echo PHP_OS_FAMILY.PHP_EOL;
-        $this->get_dir_info($path);
-    }
-
-    private function get_dir_info($path)
-    {
-        $handle = opendir($path);//打开目录返回句柄
-        while (($content = readdir($handle)) !== false) {
-            if (PHP_OS_FAMILY === "Windows") {
-                $new_dir = $path . '\\' . $content;
-            } else {
-                $new_dir = $path . '/' . $content;
-            }
-
-            if ($content == '..' || $content == '.') continue;
-//            if (strpos($content,'.') !== false) continue;
-
-            if (is_dir($new_dir)) {
-                echo "DIR----",$new_dir.PHP_EOL;
-                $this->get_dir_info($new_dir); // 递归到下一层
-            } else {
-//                echo "FILE----",$new_dir.PHP_EOL;
-                if (PHP_OS_FAMILY === "Windows") {
-                    $file = $path . '\\' . $content;
-                } else {
-                    $file = $path . '/' . $content;
-                }
-//                Storage::append("file_name_2_path-".time().'.txt', $content . ':' . $file);
-                $extension = pathinfo($file, PATHINFO_EXTENSION);
-                if (!in_array($extension, self::EXTENSION)) continue;
-                try{
-                    $data[] = [
-                        'file_name' => $content,
-                        'file_path' => $path,
-                        'file_extension' => $extension,
-                        'file_size' => filesize($file),
-                    ];
-                } catch (\Exception $exception) {
-                    continue;
-                }
-
-            }
-            if (isset($data)) {
-                self::$num += count($data);
-                echo "have scanned files:".self::$num.PHP_EOL;
-                Files::insert($data);
-                unset($data);
-            }
-        }
+        $files->scan($path);
     }
 }
