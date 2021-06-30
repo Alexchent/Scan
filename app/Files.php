@@ -42,7 +42,7 @@ class Files extends Model
 //            if (strpos($content,'.') !== false) continue;
 
             if (is_dir($new_dir)) {
-                echo "DIR----",$new_dir.PHP_EOL;
+                echo "DIR----", $new_dir . PHP_EOL;
                 $this->scan($new_dir); // 递归到下一层
             } else {
 //                echo "FILE----",$new_dir.PHP_EOL;
@@ -54,7 +54,7 @@ class Files extends Model
 //                Storage::append("file_name_2_path-".time().'.txt', $content . ':' . $file);
                 $extension = pathinfo($file, PATHINFO_EXTENSION);
                 if (!in_array($extension, self::EXTENSION)) continue;
-                try{
+                try {
                     $data[] = [
                         'file_name' => $content,
                         'file_path' => $path,
@@ -67,9 +67,12 @@ class Files extends Model
 
             }
             if (isset($data)) {
-                self::$num += count($data);
-                echo "have scanned files:".self::$num.PHP_EOL;
-                Files::insert($data);
+                try {
+                    //todo 批量插入，只要有一条记录不符合唯一索引的要求，就会导致一批数据插入失败
+                    Files::insert($data);
+                } catch (\Exception $exception) {
+                    continue;
+                }
                 unset($data);
             }
         }

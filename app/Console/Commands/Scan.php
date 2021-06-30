@@ -41,10 +41,11 @@ class Scan extends Command
     {
         $path = $this->ask('请输入要扫描的目录');
         echo "start scan".$path.PHP_EOL;
-        DB::table('files')->truncate();
-        echo "scanning, please click:".url('files').PHP_EOL;
+
+        if ($this->confirm('是否清空所有历史记录')) DB::table('files')->truncate(); //清空上次的扫描记录
+
+        echo "正在扫描，您可以访问".url('files').PHP_EOL."查看扫描结果";
         //TODO 使用消息队列处理
-        echo PHP_OS_FAMILY.PHP_EOL;
         $files->scan($path);
     }
 }
