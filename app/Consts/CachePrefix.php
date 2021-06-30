@@ -1,0 +1,1 @@
+<?php/** * Created by PhpStorm. * User: chentao * Date: 2021/6/30 * Time: 5:02 PM */namespace App\Consts;//文件总数近似值class CachePrefix {    const FILE_TOTAL_CLOSE_TO = "file_total_close_to";    // HyperLogLog   [key]file_total_close_to [value]{file_name}}
