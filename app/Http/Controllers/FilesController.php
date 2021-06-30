@@ -14,7 +14,7 @@ class FilesController extends Controller
             return $query->where('file_name', 'like', '%' . $request['file_name'] . '%');
         })->when($request->has('file_extension') && !empty($request['file_extension']), function ($query) use ($request) {
             return $query->where('file_extension', $request['file_extension']);
-        })->paginate(6);
+        })->orderBy('created_at','desc')->paginate(6);
         foreach ($files  as $same) {
             //字节转MB
             $same->file_size_f = round($same->file_size / 1048576, 2);
