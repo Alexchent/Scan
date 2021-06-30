@@ -24,3 +24,5 @@ Route::get('/repeat_files', [\App\Http\Controllers\FilesController::class,'repea
 Route::get('/files', [\App\Http\Controllers\FilesController::class,'index'])->name('files');
 Route::delete('/files/{file}', [\App\Http\Controllers\FilesController::class,'destroy'])->name('files.destroy');
 Route::get('/files/{file}', [\App\Http\Controllers\FilesController::class,'show'])->name('files.show');
+
+Route::get('file_statistic', [\App\Http\Controllers\StatisticController::class, 'show']);

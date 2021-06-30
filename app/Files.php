@@ -2,7 +2,9 @@
 
 namespace App;
 
+use App\Consts\CachePrefix;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Redis;
 
 class Files extends Model
 {
@@ -61,6 +63,8 @@ class Files extends Model
                         'file_extension' => $extension,
                         'file_size' => filesize($file),
                     ];
+                    // 利用HyperLogLog估算文件数
+                    Redis::PFADD(CachePrefix::FILE_TOTAL_CLOSE_TO, [$path.'/'.$content]);
                 } catch (\Exception $exception) {
                     continue;
                 }
