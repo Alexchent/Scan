@@ -5,6 +5,7 @@ namespace App;
 use App\Consts\CachePrefix;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Storage;
 
 class Files extends Model
 {
@@ -53,7 +54,7 @@ class Files extends Model
                 } else {
                     $file = $path . '/' . $content;
                 }
-//                Storage::append("file_name_2_path-".time().'.txt', $content . ':' . $file);
+                Storage::append("file_name_2_path-".time().'.txt', $content . ':' . $file);
                 $extension = pathinfo($file, PATHINFO_EXTENSION);
                 if (!in_array($extension, self::EXTENSION)) continue;
                 try {
