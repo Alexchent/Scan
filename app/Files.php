@@ -54,7 +54,6 @@ class Files extends Model
                 } else {
                     $file = $path . '/' . $content;
                 }
-                Storage::append("file_name_2_path-".time().'.txt',  $file);
 
                 //文件已存在
                 $res = Redis::SADD('files', $file);
@@ -63,6 +62,9 @@ class Files extends Model
                 //后缀不符合
                 $extension = pathinfo($file, PATHINFO_EXTENSION);
                 if (!in_array($extension, self::EXTENSION)) continue;
+
+                //记录未下扫描过的文件
+                Storage::append("has_exists_files.txt",  $file);
 
 //                try {
                     $data[] = [
