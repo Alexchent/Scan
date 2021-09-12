@@ -54,10 +54,17 @@ class Files extends Model
                 } else {
                     $file = $path . '/' . $content;
                 }
-                Storage::append("file_name_2_path-".time().'.txt', $content . ':' . $file);
+                Storage::append("file_name_2_path-".time().'.txt',  $file);
+
+                //文件已存在
+                $res = Redis::SADD('files', $file);
+                if (!$res) continue;
+
+                //后缀不符合
                 $extension = pathinfo($file, PATHINFO_EXTENSION);
                 if (!in_array($extension, self::EXTENSION)) continue;
-                try {
+
+//                try {
                     $data[] = [
                         'file_name' => $content,
                         'file_path' => $path,
@@ -65,10 +72,10 @@ class Files extends Model
                         'file_size' => filesize($file),
                     ];
                     // 利用HyperLogLog估算文件数
-                    Redis::PFADD(CachePrefix::FILE_TOTAL_CLOSE_TO, [$path.'/'.$content]);
-                } catch (\Exception $exception) {
-                    continue;
-                }
+//                    Redis::PFADD(CachePrefix::FILE_TOTAL_CLOSE_TO, [$path.'/'.$content]);
+//                } catch (\Exception $exception) {
+//                    continue;
+//                }
 
             }
             if (isset($data)) {
@@ -83,3 +90,4 @@ class Files extends Model
         }
     }
 }
+

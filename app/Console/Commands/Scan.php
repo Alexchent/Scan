@@ -40,11 +40,11 @@ class Scan extends Command
     public function handle(Files $files)
     {
         $path = $this->ask('请输入要扫描的目录');
-        echo "start scan".$path.PHP_EOL;
+        echo "start scan" . $path . PHP_EOL;
 
-        if ($this->confirm('是否清空所有历史记录')) DB::table('files')->truncate(); //清空上次的扫描记录
+//        if ($this->confirm('是否清空所有历史记录')) DB::table('files')->truncate(); //清空上次的扫描记录
 
-        echo "正在扫描，您可以访问".url('files').PHP_EOL."查看扫描结果";
+        echo "正在扫描，您可以访问" . url('files') . PHP_EOL . "查看扫描结果";
         //TODO 使用消息队列处理
         $files->scan($path);
     }
