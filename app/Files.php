@@ -18,7 +18,12 @@ class Files extends Model
     const EXTENSION = [
         'mp4',
         'mov',
+        'mkv',
         'flv',
+        'rmvb',
+        'wmv',
+        'avi',
+        'iso',
 
         'png',
         'gif',
