@@ -50,9 +50,9 @@ class Files extends Model
             } else {
 //                echo "FILE----",$new_dir.PHP_EOL;
                 if (PHP_OS_FAMILY === "Windows") {
-                    $file = $path . '\\' . $content;
+                    $file = rtrim($path,'/') . '\\' . $content;
                 } else {
-                    $file = $path . '/' . $content;
+                    $file = rtrim($path,'/') . '/' . $content;
                 }
 
                 //文件已存在
@@ -67,11 +67,11 @@ class Files extends Model
                 Storage::append("has_exists_files.txt",  $file);
 
 //                try {
-                    $data[] = [
+                    $data = [
                         'file_name' => $content,
                         'file_path' => $path,
                         'file_extension' => $extension,
-                        'file_size' => filesize($file),
+                        'file_size' => 0,
                     ];
                     // 利用HyperLogLog估算文件数
 //                    Redis::PFADD(CachePrefix::FILE_TOTAL_CLOSE_TO, [$path.'/'.$content]);
@@ -79,16 +79,9 @@ class Files extends Model
 //                    continue;
 //                }
 
+                Files::insert($data);
             }
-            if (isset($data)) {
-                try {
-                    //todo 批量插入，只要有一条记录不符合唯一索引的要求，就会导致一批数据插入失败
-                    Files::insert($data);
-                } catch (\Exception $exception) {
-                    continue;
-                }
-                unset($data);
-            }
+
         }
     }
 }
